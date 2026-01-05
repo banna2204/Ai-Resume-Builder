@@ -18,6 +18,8 @@ export const sendOtp = async (req, res) => {
       },
       { upsert: true, new: true }
     );
+    console.log("FROM_EMAIL:", process.env.FROM_EMAIL);
+    console.log("SENDGRID_API_KEY:", process.env.SENDGRID_API_KEY ? "SET" : "NOT SET");
 
     await sendEmail(email, otp);
 
