@@ -2,7 +2,7 @@ import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export const sendEmail = async (to, otp) => {
+export const sendEmail = async (name, to, otp) => {
   try {
     await sgMail.send({
   to,
@@ -14,7 +14,7 @@ export const sendEmail = async (to, otp) => {
   html: `
     <div style="font-family: Arial, sans-serif; line-height: 1.6;">
       <h2 style="color:#22c55e;">Verify your email</h2>
-      <p>Hello,</p>
+      <p>Hello ${name},</p>
       <p>Your One-Time Password (OTP) for Resume Builder is:</p>
 
       <div style="

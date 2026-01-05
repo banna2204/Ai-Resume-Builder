@@ -3,9 +3,9 @@ import Otp from "../models/otp.js";
 
 export const sendOtp = async (req, res) => {
   try {
-    const { email } = req.body;
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+    const {name, email } = req.body;
+    if (!email || !name) {
+      return res.status(400).json({ message: "Fields required" });
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -21,7 +21,7 @@ export const sendOtp = async (req, res) => {
     console.log("FROM_EMAIL:", process.env.FROM_EMAIL);
     console.log("SENDGRID_API_KEY:", process.env.SENDGRID_API_KEY ? "SET" : "NOT SET");
 
-    await sendEmail(email, otp);
+    await sendEmail(name,email, otp);
 
     res.json({ message: "OTP sent successfully" });
 
