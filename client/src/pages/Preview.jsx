@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { dummyResumeData } from '../assets/assets';
 import ResumePreview from '../components/ResumePreview';
 import Loader from '../components/Loader';
@@ -31,7 +31,15 @@ const Preview = () => {
 
   return resumeData ?  (
     <div className='bg-slate-100'>
-      <div className='max-w-3xl mx-auto py-10'>
+    <div className=" pt-6 max-w-3xl mx-auto">
+        <Link
+          to={'/app/builder/'  + resumeId}
+          className="inline-flex gap-2 items-center text-slate-500 hover:text-slate-700 transition-all"
+        >
+          <ArrowLeftIcon className="size-4" /> Back
+        </Link>
+      </div>
+      <div className='max-w-3xl mx-auto py-5'>
         <ResumePreview data={resumeData} template={resumeData.template} accentColor={resumeData.accentColor} classes='py-4 bg-white'/>
       </div>
     </div>
