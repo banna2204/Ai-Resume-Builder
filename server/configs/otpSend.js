@@ -1,23 +1,22 @@
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS  
-  }
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const sendEmail = async (to, otp) => {
-  await transporter.sendMail({
-    from: `"Resume Builder" <${process.env.EMAIL_USER}>`,
-    to,
-    subject: "Your OTP Verification Code",
-    html: `
-      <h2>Email Verification</h2>
-      <p>Your OTP is:</p>
-      <h1>${otp}</h1>
-      <p>This OTP is valid for 5 minutes.</p>
-    `
-  });
+  try {
+    await sgMail.send({
+      to,
+      from: process.env.FROM_EMAIL,
+      subject: "Your OTP Verification Code",
+      html: `
+        <h2>Email Verification</h2>
+        <p>Your OTP is:</p>
+        <h1>${otp}</h1>
+        <p>This OTP is valid for 5 minutes.</p>
+      `
+    });
+  } catch (err) {
+    console.error("SENDGRID ERROR:", err.message);
+    throw new Error("Email service failed");
+  }
 };
