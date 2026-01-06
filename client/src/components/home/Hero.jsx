@@ -9,7 +9,7 @@ const Hero = () => {
 
   const logos = [
   '/logos/Google.png',
-  '/logos/Amazone.svg',
+  '/logos/Amazon.svg',
   '/logos/Microsoft.svg',
   '/logos/Apple.svg',
   '/logos/Netflix.svg',
